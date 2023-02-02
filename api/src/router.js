@@ -19,7 +19,7 @@ const fileFilter = (request, file, callback) => {
   }
 };
 
-const upload = multer({fileFilter: fileFilter, storage: storage});
+const upload = multer({fileFilter, storage});
 
 router.post('/upload', upload.single('photo'), (request, response) => {
   if (request.fileValidationError) {
