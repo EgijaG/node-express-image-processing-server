@@ -7,10 +7,9 @@ const router = Router();
 const filename = (request, file, callback) => {
   callback(null, file.originalname);
 };
-const storage = multer.diskStorage({
-  destination: 'api/uploads',
-  filename: filename,
-});
+
+const storage = multer.diskStorage({destination: 'api/uploads', filename});
+
 const fileFilter = (request, file, callback) => {
   if (file.mimetype !== 'image/png') {
     request.fileValidationError = 'Wrong file type';
@@ -19,6 +18,7 @@ const fileFilter = (request, file, callback) => {
     callback(null, true);
   }
 };
+
 const upload = multer({fileFilter: fileFilter, storage: storage});
 
 router.post('/upload', upload.single('photo'), (request, response) => {
