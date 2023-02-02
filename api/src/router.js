@@ -1,5 +1,7 @@
 const {Router} = require('express');
 const multer = require('multer');
+
+// eslint-disable-next-line new-cap
 const router = Router();
 
 const filename = (request, file, callback) => {
@@ -12,14 +14,14 @@ const storage = multer.diskStorage(
 const fileFilter = (request, file, callback) => {
   if (file.mimetype !== 'image/png') {
     request.fileValidationError = 'Wrong file type';
-    callback(null, false, (Error = 'Wrong file type'));
+    callback(null, false, new Error('Wrong file type'));
   } else {
     callback(null, true);
   }
 };
 const upload = multer({fileFilter: fileFilter()}, {storage: storage});
 post('/upload', upload.single('photo'), (request, response) => {
-  if (request.has(fileValidationError)) {
+  if (request.fileValidationError) {
     return response.status(400).json({error: request.fileValidationError});
   } else {
     return response.status(201).json({success: true});
