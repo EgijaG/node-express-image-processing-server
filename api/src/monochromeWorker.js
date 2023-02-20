@@ -1,4 +1,4 @@
-const gm = require('api/src');
+const gm = require('gm');
 const workerData = require('worker-threads');
 const parentPort = requre('worker-threads');
 
