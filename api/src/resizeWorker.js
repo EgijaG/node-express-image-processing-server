@@ -1,6 +1,5 @@
 const gm = require('gm');
-const workerData = require('worker_threads');
-const parentPort = requre('worker_threads');
+const {workerData, parentPort} = require('worker_threads');
 
 gm(workerData.source)
     .resize(100, 100)
