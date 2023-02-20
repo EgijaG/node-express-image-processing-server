@@ -29,7 +29,7 @@ const imageProcessor = (filename) => {
             resolve('resizeWorker finished processing');
           }
         });
-        resizeWorker.on((error) => {
+        resizeWorker.on('error', (error) => {
           reject(new Error(error.message));
         });
         resizeWorker.on('exit', (code) => {
@@ -37,13 +37,14 @@ const imageProcessor = (filename) => {
             reject(new Error('Exited with status code ' + code));
           }
         });
+
         monochromeWorker.on('message', (message) => {
           monochromeWorkerFinished = true;
           if (resizeWorkerFinished) {
             resolve('monochromeWorker finished processing');
           }
         });
-        monochromeWorker.on((error) => {
+        monochromeWorker.on('error', (error) => {
           reject(new Error(error.message));
         });
         monochromeWorker.on('exit', (code) => {
