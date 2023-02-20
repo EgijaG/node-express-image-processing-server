@@ -1,5 +1,6 @@
 const {Router} = require('express');
 const multer = require('multer');
+const path = require('path');
 
 // eslint-disable-next-line new-cap
 const router = Router();
@@ -27,5 +28,10 @@ router.post('/upload', upload.single('photo'), (request, response) => {
   } else {
     return response.status(201).json({success: true});
   }
+});
+
+const photoPath = path.resolve(__dirname, '../../client/photo-viewer.html');
+router.get('/photo-viewer', (request, response) => {
+  response.sendFile(photoPath);
 });
 module.exports = router;
